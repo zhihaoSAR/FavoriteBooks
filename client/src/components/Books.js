@@ -51,13 +51,6 @@ class Books extends Component {
     
   }
   
-  edit(title,description)
-  {
-      
-      this.ws.send({method:"editBook",id:this.state.id,title:title,description:description})
-      this.setState(state =>({book:{id:this.state.id,title:title,description:description} }))
-  }
-  
   handleClick(event) {
     const modal = document.querySelector(".modal")
     const closeBtn = document.querySelector(".close")
@@ -67,11 +60,8 @@ class Books extends Component {
     })
   }
 
-  editBook =() =>
-   {
-       let book = this.state.book
-       this.ws.send(JSON.stringify({method:"editBook",id:book.id,title:book.title,description:book.description}))
-   }
+  
+
   togglePop = () => {
     
     if(this.state.seen)
@@ -84,6 +74,12 @@ class Books extends Component {
     
    };
    
+   //funciones para editar el libro
+   editBook =() =>
+   {
+       let book = this.state.book
+       this.ws.send(JSON.stringify({method:"editBook",id:book.id,title:book.title,description:book.description}))
+   }
    popUp(id,readOnly)
    {
     this.state.book = this.state.books[id]
@@ -113,8 +109,8 @@ class Books extends Component {
     const items = []
 
     for (let book of this.state.books) {
-        items.push(<li className="booklist" key={items}><button className="book" onClick={()=>{return this.popUp(book.id,false)}}>{book.title}</button> 
-                    <button onClick={()=>{return this.popUp(book.id,true)}}>edit</button> </li> )
+        items.push(<li className="booklist" key={items}><button className="book" onClick={()=>{return this.popUp(book.id,true)}}>{book.title}</button> 
+                    <button onClick={()=>{return this.popUp(book.id,false)}}>edit</button> </li> )
     }
     return (
         

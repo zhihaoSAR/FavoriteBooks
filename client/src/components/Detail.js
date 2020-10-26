@@ -1,9 +1,9 @@
 import React, { Component } from "react";
+
+// ventanilla que sale después de clicar un libro
  class Detail extends Component {
 
-    state={
 
-    }
   handleClick = () => {
    this.props.toggle();
   };
@@ -21,6 +21,7 @@ render() {
         type="textarea"
         defaultValue={this.props.book.title}
         onChange={this.props.editTitle}
+        readOnly={this.props.readOnly}
         />
         </div>
         <div className="detail">
@@ -28,7 +29,7 @@ render() {
         type="textarea"
         defaultValue={this.props.book.description}
         onChange={this.props.editDescription}
-        
+        readOnly={this.props.readOnly}
         />
         </div>
       </form>

@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import logo from './logo.svg'
 import './App.css'
-import Chat from './components/Chat'
 import Books from './components/Books'
 
 class App extends Component {

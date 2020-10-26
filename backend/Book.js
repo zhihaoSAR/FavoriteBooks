@@ -49,11 +49,11 @@ function SaveBooks()
 
 module.exports = {
 
-    LoadBooks:LoadBooks,
-    getBook: getBook,
-    editBook: editBook,
-    getBooks: getBooks,
-    SaveBooks:SaveBooks
+    LoadBooks:LoadBooks, //cargar libros de local
+    getBook: getBook, //buscar un libro param: id_del_libro, devolver un objeto libro con id,title,description
+    editBook: editBook, // editar un libro  param: id_del_libro,titulo,descripción
+    getBooks: getBooks, // obtener todos los libros guardado en un array
+    SaveBooks:SaveBooks // guardar los datos en local
 }
 
 
