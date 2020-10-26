@@ -5,6 +5,7 @@ const { resolve } = require('path');
 const fs = require('fs').promises;
 
 books = {};
+var changed = false;
 function LoadBooks()
 {
     return fs.readFile('Books.json').then(
@@ -17,6 +18,11 @@ function LoadBooks()
             } )
         }
     );
+}
+function editBook(id,title,description){
+    aux = books.dict[id]
+    aux.title = title
+    aux.description = description
 }
 function getBook(id){
     return books.dict[id];
@@ -35,6 +41,7 @@ module.exports = {
 
     LoadBooks:LoadBooks,
     getBook: getBook,
+    editBook: editBook,
     getBooks: getBooks,
     SaveBooks:SaveBooks
 }
