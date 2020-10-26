@@ -27,7 +27,7 @@ function getBook(id){
 }
 function getBooks()
 {
-    return books.dict;
+    return dict
 }
 function SaveBooks()
 {

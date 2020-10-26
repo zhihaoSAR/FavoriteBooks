@@ -1,5 +1,7 @@
 import React, { Component } from "react";
  class Detail extends Component {
+
+
   handleClick = () => {
    this.props.toggle();
   };
@@ -10,15 +12,25 @@ render() {
       <span className="close" onClick={this.handleClick}>
         &times;
       </span>
+      
       <form>
-        <h3>Register!</h3>
-        <label>
-          Name:
-          <input type="text" name="name" />
-        </label>
-        <br />
-        <input type="submit" />
+      <div className='detail'>
+        <input
+        type="textarea"
+        defaultValue={this.props.book.title}
+        onChange={this.props.edit}
+        />
+        </div>
+        <div className="detail">
+        <textarea className="description"
+        type="textarea"
+        defaultValue={this.props.book.description}
+        onChange={this.props.edit}
+        
+        />
+        </div>
       </form>
+      
     </div>
   </div>
   );

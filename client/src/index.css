@@ -45,9 +45,17 @@ code {
 }
 .book{
 
-  width: 100%;
+  width: 50%;
   height: inherit;
+  margin-left: 5mm;
+  margin-right: 5mm;
 }
 .booklist{
   list-style-type: none;
+}
+.detail{
+  margin-top: 5mm;
+}
+.description{
+  height: 50mm;
 }

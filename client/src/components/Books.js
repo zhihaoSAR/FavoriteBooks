@@ -5,7 +5,9 @@ const URL = 'ws://localhost:3030'
 class Books extends Component {
   state = {
     books: [],
-    seen: false
+    seen: false,
+    book:{id:-1 ,title: "", description: ""},
+    readOnly: false
   }
 
   ws = new WebSocket(URL)
@@ -22,7 +24,17 @@ class Books extends Component {
       const message = JSON.parse(evt.data)
       console.log("recibido informacion")
       console.log(message)
-      this.setState(state =>({books: message}))
+      //comprobar si es un libro o una colección de libro
+      if(!message.id)
+      {
+        this.setState(({books: message}))
+      }
+      else{
+          this.setState(state => {
+            state.books[message.id] = message
+            return ({books:state.books})
+          })
+      }
       console.log(this.state.books)
     }
 
@@ -36,16 +48,12 @@ class Books extends Component {
     
   }
   
-  addMessage = message =>
-    this.setState(state => ({ messages: [message, ...state.messages] }))
-
-  submitMessage = messageString => {
-    // on submitting the ChatInput form, send the message, add it to the list and reset the input
-    const message = { name: this.state.name, message: messageString }
-    this.ws.send(JSON.stringify(message))
-    this.addMessage(message)
+  edit(title,description)
+  {
+      
+      this.ws.send({method:"editBook",id:this.state.id,title:title,description:description})
+      this.setState(state =>({book:{id:this.state.id,title:title,description:description} }))
   }
-
   
   handleClick(event) {
     const modal = document.querySelector(".modal")
@@ -61,21 +69,28 @@ class Books extends Component {
     });
    };
    
+   popUp(id,readOnly)
+   {
+    this.state.book = this.state.books[id]
+    this.setState({readOnly: readOnly})
+    this.togglePop()
+   }
 
   render() {
 
     const items = []
 
     for (let book of this.state.books) {
-        items.push(<li className="booklist"><button className="book">{book.title}</button></li> )
+        items.push(<li className="booklist" key={items}><button className="book" onClick={()=>{return this.popUp(book.id,false)}}>{book.title}</button> 
+                    <button onClick={()=>{return this.popUp(book.id,true)}}>edit</button> </li> )
     }
     return (
         
         <div>
-            <div className="btn" onClick={this.togglePop}>
+            <div className="btn"  >
             {items}
             </div>
-            {this.state.seen ? <Detail toggle={this.togglePop} /> : null}
+            {this.state.seen ? <Detail toggle={this.togglePop} book={this.state.book} readOnly={this.state.readOnly}/> : null}
        </div>
     )
   }
