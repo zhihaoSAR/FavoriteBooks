@@ -18,8 +18,12 @@ class Books extends Component {
 
     this.ws.onmessage = evt => {
       // on receiving a message, add it to the list of messages
+      console.log(evt)
       const message = JSON.parse(evt.data)
-      this.addMessage(message)
+      console.log("recibido informacion")
+      console.log(message)
+      this.setState(state =>({books: message}))
+      console.log(this.state.books)
     }
 
     this.ws.onclose = () => {
@@ -29,9 +33,9 @@ class Books extends Component {
         ws: new WebSocket(URL),
       })
     }
-    //this.ws.send(JSON.stringify({method: "getBooks"}))
+    
   }
-
+  
   addMessage = message =>
     this.setState(state => ({ messages: [message, ...state.messages] }))
 
@@ -56,14 +60,20 @@ class Books extends Component {
      seen: !this.state.seen
     });
    };
-  
+   
 
   render() {
+
+    const items = []
+
+    for (let book of this.state.books) {
+        items.push(<li className="booklist"><button className="book">{book.title}</button></li> )
+    }
     return (
         
         <div>
             <div className="btn" onClick={this.togglePop}>
-            <button>New User?</button>
+            {items}
             </div>
             {this.state.seen ? <Detail toggle={this.togglePop} /> : null}
        </div>

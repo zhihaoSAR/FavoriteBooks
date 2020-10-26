@@ -1,6 +1,3 @@
-const { rejects } = require('assert');
-const { get } = require('http');
-const { resolve } = require('path');
 
 const fs = require('fs').promises;
 
@@ -23,6 +20,7 @@ function editBook(id,title,description){
     aux = books.dict[id]
     aux.title = title
     aux.description = description
+    changed = true
 }
 function getBook(id){
     return books.dict[id];
@@ -33,7 +31,8 @@ function getBooks()
 }
 function SaveBooks()
 {
-    return fs.writeFile('Books.json', JSON.stringify(books));
+    if(changed)
+        return fs.writeFile('Books.json', JSON.stringify(books));
 }
 
 

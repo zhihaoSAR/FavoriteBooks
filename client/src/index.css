@@ -43,3 +43,11 @@ code {
   color: cyan;
   cursor: pointer;
 }
+.book{
+
+  width: 100%;
+  height: inherit;
+}
+.booklist{
+  list-style-type: none;
+}
