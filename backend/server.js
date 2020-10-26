@@ -1,5 +1,5 @@
 const WebSocket = require('ws');
-
+var book = require('Book')
 const wss = new WebSocket.Server({ port: 3030 });
 
 wss.on('connection', function connection(ws) {
