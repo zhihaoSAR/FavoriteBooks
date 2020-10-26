@@ -1,7 +1,9 @@
 import React, { Component } from "react";
  class Detail extends Component {
 
+    state={
 
+    }
   handleClick = () => {
    this.props.toggle();
   };
@@ -18,14 +20,14 @@ render() {
         <input
         type="textarea"
         defaultValue={this.props.book.title}
-        onChange={this.props.edit}
+        onChange={this.props.editTitle}
         />
         </div>
         <div className="detail">
         <textarea className="description"
         type="textarea"
         defaultValue={this.props.book.description}
-        onChange={this.props.edit}
+        onChange={this.props.editDescription}
         
         />
         </div>

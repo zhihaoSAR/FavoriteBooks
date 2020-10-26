@@ -1,3 +1,4 @@
+const { resolve } = require('path');
 
 const fs = require('fs').promises;
 
@@ -27,12 +28,22 @@ function getBook(id){
 }
 function getBooks()
 {
-    return dict
+    return books.dict
 }
 function SaveBooks()
 {
     if(changed)
-        return fs.writeFile('Books.json', JSON.stringify(books));
+    {
+        return fs.writeFile('Books.json', JSON.stringify(books)).then(()=>
+        {
+            return new Promise((resolve) =>{
+                changed = false;
+                resolve();
+            })
+        
+        });
+    }
+       
 }
 
 
